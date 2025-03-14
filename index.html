@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentação detalhada do sistema Inventário Tetris para Unity - um sistema de inventário baseado em grid com mecânicas inspiradas no jogo Tetris">
+    <title>Documentação do Inventário Tetris</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3, h4 {
+            color: #2a5885;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        h2 {
+            margin-top: 40px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        h3 {
+            margin-top: 30px;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            color: #c7254e;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #333;
+        }
+        .component {
+            background-color: #f9f9f9;
+            border-left: 3px solid #2a5885;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        .function {
+            margin-left: 20px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 3px solid #ffc107;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Documentação Detalhada do Sistema "Inventário Tetris"</h1>
+
+    <h2 id="visao-geral">1. Visão Geral</h2>
+    <p>O "Inventário Tetris" é um sistema de inventário baseado em grid onde os itens ocupam espaços com formas diferentes (similar ao jogo Tetris), permitindo que os jogadores organizem itens de formatos variados em um espaço limitado. O sistema suporta rotação de itens, arraste e soltura entre diferentes inventários, e salvamento/carregamento do estado do inventário.</p>
+
+    <h2 id="componentes-principais">2. Componentes Principais</h2>
+
+    <h3 id="canvas">2.1. Canvas</h3>
+    <div class="component">
+        <p>O componente Canvas é a base para toda a interface do usuário. Ele contém todos os elementos visuais do inventário.</p>
+        <p><strong>Função</strong>: Renderiza todos os elementos UI e gerencia o espaçamento e escala apropriados para diferentes resoluções de tela.</p>
+    </div>
+
+    <h3 id="background">2.2. Background</h3>
+    <div class="component">
+        <p><strong>Função</strong>: Um simples elemento visual que serve como plano de fundo para toda a interface.</p>
+    </div>
+
+    <h3 id="tetris-background">2.3. TetrisBackground</h3>
+    <div class="component">
+        <p>Este componente cria visualmente o grid do inventário.</p>
+        <p><strong>Componentes</strong>:</p>
+        <ul>
+            <li><strong>Rect Transform</strong>: Controla posição, tamanho e âncora do grid</li>
+            <li><strong>Grid Layout Group</strong>: Organiza os elementos filhos em um grid</li>
+            <li><strong>Inventory Tetris Background (Script)</strong>: Cria e gerencia a visualização do grid</li>
+            <li><strong>Inventory Tetris (Script)</strong>: Gerencia a lógica do inventário e posicionamento dos itens</li>
+        </ul>
+        <p><strong>Função</strong>: Cria visualmente o grid de células onde os itens podem ser colocados.</p>
+    </div>
+
+    <h3 id="tetris-second">2.4. TetrisSecondBackground e TetrisSecond</h3>
+    <div class="component">
+        <p>Versões secundárias do inventário que permitem a transferência de itens entre diferentes inventários.</p>
+        <p><strong>Função</strong>: Fornece inventários adicionais com os quais o jogador pode interagir.</p>
+    </div>
+
+    <h3 id="inventory-tetris">2.5. Inventory Tetris</h3>
+    <div class="component">
+        <p>O componente principal que gerencia o inventário.</p>
+        <p><strong>Componentes</strong>:</p>
+        <ul>
+            <li><strong>Rect Transform</strong>: Controla posição e tamanho do inventário</li>
+            <li><strong>Inventory Tetris (Script)</strong>: Gerencia a lógica core do sistema</li>
+            <li><strong>Inventory Tetris Manual Placement (Script)</strong>: Permite a colocação manual de itens</li>
+        </ul>
+        <p><strong>Função</strong>: Gerencia toda a lógica de colocação, remoção e validação de itens no grid.</p>
+    </div>
+
+    <h3 id="canvas-canvas">2.6. Canvas Canvas</h3>
+    <div class="component">
+        <p><strong>Função</strong>: Componente Canvas adicional para elementos UI secundários.</p>
+    </div>
+
+    <h3 id="inventory-tetris-drag-drop-system">2.7. Inventory Tetris Drop System</h3>
+    <div class="component">
+        <p><strong>Componentes</strong>:</p>
+        <ul>
+            <li><strong>Transform</strong>: Controla posição do objeto</li>
+            <li><strong>Inventory Tetris Drop System (Script)</strong>: Gerencia arrastar e soltar itens entre inventários</li>
+        </ul>
+        <p><strong>Função</strong>: Gerencia o sistema de arrastar e soltar itens entre diferentes inventários.</p>
+    </div>
+
+    <h3 id="inventory-tetris-testing">2.8. Inventory Tetris Testing</h3>
+    <div class="component">
+        <p><strong>Componentes</strong>:</p>
+        <ul>
+            <li><strong>Transform</strong>: Controla posição do objeto</li>
+            <li><strong>Inventory Tetris Testing (Script)</strong>: Contém funções para testar o sistema de inventário</li>
+        </ul>
+        <p><strong>Função</strong>: Fornece funcionalidades de teste, como carregar configurações pré-definidas do inventário e salvar o estado atual.</p>
+    </div>
+
+    <h3 id="inventory-tetris-assets">2.9. Inventory Tetris Assets</h3>
+    <div class="component">
+        <p><strong>Componentes</strong>:</p>
+        <ul>
+            <li><strong>Transform</strong>: Controla posição do objeto</li>
+            <li><strong>Inventory Tetris Assets (Script)</strong>: Armazena referências para os itens e recursos visuais</li>
+        </ul>
+        <p><strong>Função</strong>: Gerencia todas as referências aos ScriptableObjects e recursos visuais usados pelo sistema.</p>
+    </div>
+
+    <h2 id="scripts-principais">3. Scripts Principais e Suas Funções</h2>
+
+    <h3 id="inventory-tetris-script">3.1. InventoryTetris.cs</h3>
+    <div class="component">
+        <p>Este é o script principal do sistema de inventário.</p>
+        <p><strong>Funcionalidades</strong>:</p>
+        <ul>
+            <li>Cria e gerencia um grid de células (10x10 por padrão)</li>
+            <li>Controla a lógica de posicionamento de itens</li>
+            <li>Verifica se é possível posicionar um item em determinada posição</li>
+            <li>Remove itens do inventário</li>
+            <li>Salva e carrega o estado do inventário</li>
+        </ul>
+    </div>
+
+    <h3 id="inventory-tetris-background-script">3.2. InventoryTetrisBackground.cs</h3>
+    <div class="component">
+        <p><strong>Funcionalidades</strong>:</p>
+        <ul>
+            <li>Cria visualmente as células do grid de fundo</li>
+            <li>Ajusta o tamanho visual das células para corresponder ao tamanho lógico</li>
+            <li>Posiciona o grid de fundo corretamente</li>
+        </ul>
+    </div>
+
+    <h3 id="inventory-tetris-drag-drop-script">3.3. InventoryTetrisDragDrop.cs</h3>
+    <div class="component">
+        <p><strong>Funcionalidades</strong>:</p>
+        <ul>
+            <li>Gerencia o comportamento de arrastar e soltar para itens individuais</li>
+            <li>Implementa interfaces para eventos de UI (IPointerDownHandler, IBeginDragHandler, etc.)</li>
+            <li>Comunica-se com o InventoryTetrisDragDropSystem para coordenar o processo</li>
+        </ul>
+    </div>
+
+    <h3 id="inventory-tetris-drag-drop-system-script">3.4. InventoryTetrisDragDropSystem.cs</h3>
+    <div class="component">
+        <p><strong>Funcionalidades</strong>:</p>
+        <ul>
+            <li>Gerencia o sistema global de arrastar e soltar</li>
+            <li>Controla a rotação de itens durante o arrastar</li>
+            <li>Calcula posições de destino válidas para soltar os itens</li>
+            <li>Verifica se um item pode ser colocado em um novo inventário</li>
+            <li>Lida com mensagens de feedback quando um item não pode ser colocado</li>
+        </ul>
+    </div>
+
+    <h3 id="inventory-tetris-manual-placement-script">3.5. InventoryTetrisManualPlacement.cs</h3>
+    <div class="component">
+        <p><strong>Funcionalidades</strong>:</p>
+        <ul>
+            <li>Permite colocar manualmente itens no inventário</li>
+            <li>Gerencia a seleção e posicionamento de itens</li>
+            <li>Fornece funções para colocar itens em posições específicas do grid</li>
+        </ul>
+    </div>
+
+    <h3 id="inventory-tetris-testing-script">3.6. InventoryTetrisTesting.cs</h3>
+    <div class="component">
+        <p><strong>Funcionalidades</strong>:</p>
+        <ul>
+            <li>Fornece funcionalidades de teste</li>
+            <li>Permite carregar configurações predefinidas de inventário</li>
+            <li>Permite salvar o estado atual do inventário para uso posterior</li>
+        </ul>
+    </div>
+
+    <h3 id="inventory-tetris-assets-script">3.7. InventoryTetrisAssets.cs</h3>
+    <div class="component">
+        <p><strong>Funcionalidades</strong>:</p>
+        <ul>
+            <li>Armazena referências para todos os ScriptableObjects de itens</li>
+            <li>Fornece métodos para obter itens por nome</li>
+            <li>Armazena recursos visuais como sprites de fundo e visualizações de grid</li>
+        </ul>
+    </div>
+
+    <h3 id="item-tetris-so-script">3.8. ItemTetrisSO.cs</h3>
+    <div class="component">
+        <p><strong>Funcionalidades</strong>:</p>
+        <ul>
+            <li>Define as propriedades dos itens (tamanho, forma, etc.)</li>
+            <li>Herda de PlacedObjectTypeSO</li>
+            <li>Cria visualizações de grid para os itens durante o arrastar</li>
+        </ul>
+    </div>
+
+    <h2 id="classes-importantes">4. Classes e ScriptableObjects Importantes</h2>
+
+    <h3 id="placed-object-type-so">4.1. PlacedObjectTypeSO</h3>
+    <div class="component">
+        <p>Um ScriptableObject base para todos os itens do inventário.</p>
+        <p><strong>Propriedades</strong>:</p>
+        <ul>
+            <li>Nome do item</li>
+            <li>Prefab e visual</li>
+            <li>Largura e altura</li>
+            <li>Métodos para lidar com rotação e direção</li>
+        </ul>
+    </div>
+
+    <h3 id="item-tetris-so">4.2. ItemTetrisSO</h3>
+    <div class="component">
+        <p>Herda de PlacedObjectTypeSO e adiciona funcionalidades específicas para itens do inventário.</p>
+        <p><strong>Funcionalidades Adicionais</strong>:</p>
+        <ul>
+            <li>Método CreateVisualGrid para mostrar a forma do item durante o arrastar</li>
+        </ul>
+    </div>
+
+    <h3 id="placed-object">4.3. PlacedObject</h3>
+    <div class="component">
+        <p>Representa um item colocado no inventário.</p>
+        <p><strong>Propriedades</strong>:</p>
+        <ul>
+            <li>Referência ao PlacedObjectTypeSO</li>
+            <li>Posição de origem no grid</li>
+            <li>Direção (rotação)</li>
+        </ul>
+        <p><strong>Métodos</strong>:</p>
+        <ul>
+            <li>Métodos estáticos Create e CreateCanvas para instanciar itens</li>
+            <li>Métodos para obter a lista de posições do grid ocupadas pelo item</li>
+        </ul>
+    </div>
+
+    <h3 id="grid-object">4.4. GridObject</h3>
+    <div class="component">
+        <p>Classe interna do InventoryTetris que representa uma célula no grid.</p>
+        <p><strong>Propriedades</strong>:</p>
+        <ul>
+            <li>Referência ao grid pai</li>
+            <li>Coordenadas x, y</li>
+            <li>Referência ao objeto colocado (se houver)</li>
+        </ul>
+        <p><strong>Métodos</strong>:</p>
+        <ul>
+            <li>Métodos para definir e limpar objetos colocados</li>
+            <li>Verificações se é possível construir/colocar um item</li>
+        </ul>
+    </div>
+
+    <h2 id="fluxo-integracao">5. Fluxo de Integração</h2>
+    <p>Para integrar o sistema de Inventário Tetris em outro projeto:</p>
+
+    <h3>1. Copiar a Estrutura da Cena</h3>
+    <ul>
+        <li>Copiar a estrutura Canvas completa da cena GameScene_InventoryTetris</li>
+        <li>Manter a hierarquia de objetos intacta</li>
+    </ul>
+
+    <h3>2. Garantir que os Scripts Estejam Disponíveis</h3>
+    <ul>
+        <li>Todos os scripts mencionados acima devem estar no projeto</li>
+        <li>Manter a estrutura de pastas ou atualizar referências se necessário</li>
+    </ul>
+
+    <h3>3. Configurar os ScriptableObjects</h3>
+    <ul>
+        <li>Certifique-se de que todos os ItemTetrisSO necessários estão no projeto</li>
+        <li>Se novos itens forem necessários, crie-os como ScriptableObjects do tipo ItemTetrisSO</li>
+    </ul>
+
+    <h3>4. Integrar com seus Sistemas</h3>
+    <ul>
+        <li>Personalizar a aparência visual conforme necessário</li>
+        <li>Vincular eventos de inventário (OnObjectPlaced) aos seus sistemas</li>
+        <li>Implementar lógica para quando os itens são colocados/removidos</li>
+    </ul>
+
+    <h3>5. Exemplo de Uso</h3>
+    <pre><code>// Obter referência ao inventário
+InventoryTetris inventoryTetris = FindObjectOfType&lt;InventoryTetris&gt;();
+
+// Escutar o evento quando um item é colocado
+inventoryTetris.OnObjectPlaced += (sender, placedObject) => {
+    // Sua lógica quando um item é colocado
+    Debug.Log("Item colocado: " + placedObject.GetPlacedObjectTypeSO().nameString);
+};
+
+// Salvar o estado do inventário
+string savedInventory = inventoryTetris.Save();
+
+// Carregar um inventário salvo
+inventoryTetris.Load(savedInventory);</code></pre>
+
+    <h2 id="componentes-cena">6. Componentes Específicos da Cena</h2>
+
+    <h3 id="tetris-background-structure">6.1. Structure/TetrisBackground</h3>
+    <div class="component">
+        <p>No TetrisBackground, o Grid Layout Group organiza visualmente as células do grid, enquanto o script InventoryTetrisBackground cria automaticamente as células baseando-se no tamanho do grid no InventoryTetris.</p>
+    </div>
+
+    <h3 id="inventory-tetris-structure">6.2. Structure/Inventory Tetris</h3>
+    <div class="component">
+        <p>Este objeto contém o script principal InventoryTetris que gerencia a lógica do grid e o script InventoryTetrisManualPlacement que permite ao jogador colocar itens manualmente.</p>
+    </div>
+
+    <h3 id="inventory-tetris-drop-system-structure">6.3. Structure/Inventory Tetris Drop System</h3>
+    <div class="component">
+        <p>Este objeto contém o script InventoryTetrisDragDropSystem que coordena o arrastar e soltar entre diferentes inventários.</p>
+    </div>
+
+    <h3 id="inventory-tetris-testing-structure">6.4. Structure/Inventory Tetris Testing</h3>
+    <div class="component">
+        <p>Contém o script InventoryTetrisTesting para funções de teste, particularmente útil para carregar configurações predefinidas e testar a funcionalidade.</p>
+    </div>
+
+    <h3 id="inventory-tetris-assets-structure">6.5. Structure/Inventory Tetris Assets</h3>
+    <div class="component">
+        <p>Mantém referências para todos os assets necessários pelo sistema, incluindo todos os tipos de itens disponíveis e recursos visuais.</p>
+    </div>
+
+    <h2 id="resumo">7. Resumo</h2>
+    <p>O sistema "Inventário Tetris" é uma solução de inventário baseado em grid que oferece uma experiência de gerenciamento de inventário semelhante ao jogo Tetris. Permite a colocação de itens de diferentes formas em um grid, com capacidade para rotação, arrastar e soltar, e salvar/carregar estados.</p>
+    
+    <p>Para integrar em seu próprio projeto, você precisa copiar a estrutura da cena, garantir que todos os scripts e ScriptableObjects estejam disponíveis, e personalizar conforme necessário para se ajustar à estética e lógica do seu projeto. A estrutura orientada a eventos facilita a conexão com outros sistemas do jogo.</p>
+
+    <footer style="margin-top: 50px; text-align: center; border-top: 1px solid #eee; padding-top: 20px; color: #777;">
+        <p>Documentação gerada para o sistema Inventário Tetris - © 2025</p>
+    </footer>
+</body>
+</html> 

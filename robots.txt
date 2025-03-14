@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+User-agent: Cursor
+Allow: /
+
+Sitemap: https://seuusuario.github.io/InventarioTetris/sitemap.xml 
