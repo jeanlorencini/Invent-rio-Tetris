@@ -353,6 +353,157 @@ string savedInventory = inventoryTetris.Save();
 // Carregar um inventário salvo
 inventoryTetris.Load(savedInventory);</code></pre>
 
+    <h2 id="estrutura-detalhada">5.1 Estrutura Detalhada da Cena</h2>
+    <p>Abaixo está a estrutura completa da cena, organizada hierarquicamente com todos os componentes necessários. Esta é a estrutura recomendada que deve ser mantida ao copiar para o seu projeto:</p>
+
+    <div class="component">
+        <h3>Canvas</h3>
+        <p><strong>Componentes:</strong></p>
+        <ul>
+            <li>Rect Transform</li>
+            <li>Canvas</li>
+            <li>Canvas Scaler</li>
+            <li>Graphic Raycaster</li>
+        </ul>
+        
+        <p><strong>Filhos:</strong></p>
+        <ul>
+            <li>
+                <strong>Background</strong>
+                <ul>
+                    <li><strong>Componentes:</strong>
+                        <ul>
+                            <li>Rect Transform</li>
+                            <li>Image</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+                <strong>TetrisBackground</strong>
+                <ul>
+                    <li><strong>Componentes:</strong>
+                        <ul>
+                            <li>Rect Transform</li>
+                            <li>Grid Layout Group</li>
+                            <li>Inventory Tetris Background (Script)</li>
+                            <li>Inventory Tetris (Script)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Filhos:</strong>
+                        <ul>
+                            <li>
+                                <strong>TetrisSecondBackground</strong>
+                                <ul>
+                                    <li><strong>Componentes:</strong>
+                                        <ul>
+                                            <li>Rect Transform</li>
+                                            <li>Grid Layout Group</li>
+                                            <li>Inventory Tetris Background (Script)</li>
+                                            <li>Inventory Tetris (Script)</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>TetrisSecond</strong>
+                                <ul>
+                                    <li><strong>Componentes:</strong>
+                                        <ul>
+                                            <li>Rect Transform</li>
+                                            <li>Grid Layout Group</li>
+                                            <li>Inventory Tetris Background (Script)</li>
+                                            <li>Inventory Tetris (Script)</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+                <strong>Inventory Tetris</strong>
+                <ul>
+                    <li><strong>Componentes:</strong>
+                        <ul>
+                            <li>Rect Transform</li>
+                            <li>Inventory Tetris (Script)</li>
+                            <li>Inventory Tetris Manual Placement (Script)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+                <strong>Canvas</strong>
+                <ul>
+                    <li><strong>Componentes:</strong>
+                        <ul>
+                            <li>Rect Transform</li>
+                            <li>Canvas</li>
+                            <li>Placed Object Type SO List</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+                <strong>Canvas Canvas</strong>
+                <ul>
+                    <li><strong>Componentes:</strong>
+                        <ul>
+                            <li>Rect Transform</li>
+                            <li>Canvas</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+                <strong>Inventory Tetris Drop System</strong>
+                <ul>
+                    <li><strong>Componentes:</strong>
+                        <ul>
+                            <li>Transform</li>
+                            <li>Inventory Tetris Drop System (Script)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+                <strong>Inventory Tetris Testing</strong>
+                <ul>
+                    <li><strong>Componentes:</strong>
+                        <ul>
+                            <li>Transform</li>
+                            <li>Inventory Tetris Testing (Script)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+                <strong>Inventory Tetris Assets</strong>
+                <ul>
+                    <li><strong>Componentes:</strong>
+                        <ul>
+                            <li>Transform</li>
+                            <li>Inventory Tetris Assets (Script)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="warning">
+        <p><strong>Atenção:</strong> É essencial manter esta hierarquia exata para garantir o funcionamento correto do sistema. Alterações na estrutura podem causar erros ou comportamentos inesperados.</p>
+    </div>
+
     <h2 id="componentes-cena">6. Componentes Específicos da Cena</h2>
 
     <h3 id="tetris-background-structure">6.1. Structure/TetrisBackground</h3>
